@@ -20,6 +20,9 @@ public class OperationQueue implements Runnable{
 	
 	public static boolean singleUpdateSwitch = true;
 	
+	public static boolean isHost = true;
+	public static boolean isClient = false;
+	
 	private static ChessBoardModelService chessBoard;
 	private static GameModelService gameModel;
 	
@@ -38,6 +41,7 @@ public class OperationQueue implements Runnable{
 		while(isRunning){
 			MineOperation operation = getNewMineOperation();
 			operation.execute();
+			isHost = true;
 		}
 	}
 	

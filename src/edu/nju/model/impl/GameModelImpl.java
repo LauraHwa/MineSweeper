@@ -55,10 +55,13 @@ public class GameModelImpl extends BaseModel implements GameModelService{
 				break;
 			}
 		}
-		if(gl == null&&width==0&&height == 0)
+		if(gl == null&&width==0&&height == 0){
 			gl = levelList.get(2);
+		    level="小";
+		}
 		
 		if(gl != null){
+			level=gl.getName();
 			height = gl.getWidth();
 			width = gl.getHeight();
 			mineNum = gl.getMineNum();
@@ -88,6 +91,20 @@ public class GameModelImpl extends BaseModel implements GameModelService{
 	public boolean setGameLevel(String level) {
 		// TODO Auto-generated method stub
 		//输入校验
+		String[] menuSizeInfo = level.split(" ");
+		if(menuSizeInfo.length == 3){
+			this.level = "自定义";
+			int h = Integer.parseInt(menuSizeInfo[0]);
+			int w = Integer.parseInt(menuSizeInfo[1]);
+			int n = Integer.parseInt(menuSizeInfo[2]);
+			if(levelList.size() == 4){
+				levelList.remove(3);
+			}
+			levelList.add(new GameLevel(3, "自定义", h, w, n));
+		}else{
+			this.level = level;
+		}
+		
 		this.level = level;
 		return true;
 	}
