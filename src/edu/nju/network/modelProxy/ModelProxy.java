@@ -21,21 +21,14 @@ public class ModelProxy extends BaseModel implements Observer{
 		TransformObject obj = (TransformObject) arg;
 		String trigger_class = obj.getSource();
 		UpdateMessage msg = obj.getMsg();
-		System.out.println("GameModelProxy get the UpdateMessage! - " + msg.getKey());
-		System.out.println("Triiget class is " + trigger_class);
 		Class<?> super_class = this.getClass().getInterfaces()[0];
-		System.out.println("super class is : " + super_class.getName());
 		try {
 			if(super_class.isAssignableFrom(Class.forName(trigger_class))){
-				System.out.println(this.getClass().getName()+" get the UpdateMessage!");
 				this.updateChange(msg);
-				System.out.println("UpdateMessage send!!!");
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-
 }

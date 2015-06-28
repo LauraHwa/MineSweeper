@@ -11,14 +11,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class CustomDialog {
-
+	public static void main(String[] args){
+		JFrame jf = new JFrame();
+		jf.setLocation(300, 200);
+		CustomDialog rd = new CustomDialog(jf);
+		rd.show();
+	}
 	/**
 	 *  
 	 */
@@ -180,9 +184,6 @@ public class CustomDialog {
 			width = Integer.parseInt(widthField.getText());
 			height = Integer.parseInt(heightField.getText());
 			mineNumber = Integer.parseInt(mineNumberField.getText());
-			System.out.println("width: " + width);
-			System.out.println("Height: " + height);
-			System.out.println("Num: " + mineNumber);
 		} catch (NumberFormatException e) {
 			width = 9;
 			height = 9;
@@ -198,19 +199,24 @@ public class CustomDialog {
 			widthField.setText("50");
 		}
 
-		if (height < 1) {
-			height = 1;
-			heightField.setText("1");
+		if (height < 9) {
+			height = 9;
+			heightField.setText("9");
 		} else if (height > 30) {
 			height = 30;
 			heightField.setText("30");
 		}
 
+		if(mineNumber < 10){
+			mineNumber = 10;
+		}else if(mineNumber > 668){
+			mineNumber = 668;
+		}
+		
 		if (mineNumber > height * width || mineNumber < 1) {
 			mineNumber = height * width / 7;
-			mineNumberField.setText(String.valueOf(mineNumber));
 		}
-
+		mineNumberField.setText(String.valueOf(mineNumber));
 	}
 
 	private JFrame parent;

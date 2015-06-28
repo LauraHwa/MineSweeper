@@ -6,6 +6,6 @@ package edu.nju.model.state;
  *
  */
 public enum GameResultState {
-	SUCCESS,FAIL,INTERRUPT,DRAW
+	SUCCESS, FAIL, INTERRUPT, DRAW
 }
 

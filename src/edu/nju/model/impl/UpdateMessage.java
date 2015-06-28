@@ -32,5 +32,4 @@ public class UpdateMessage implements Serializable{
 	public void setValue(Object value) {
 		this.value = value;
 	}
-	
 }

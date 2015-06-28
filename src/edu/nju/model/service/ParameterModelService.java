@@ -3,7 +3,6 @@ package edu.nju.model.service;
 /**
  * 负责控制游戏参数Model，现有参数：剩余雷数
  * @author Wangy
- *
  */
 public interface ParameterModelService {
 
@@ -25,5 +24,11 @@ public interface ParameterModelService {
 	 * @return
 	 */
 	public boolean addMineNum();
+	
+	/**
+	 * 联机时根据标出雷数判断输赢
+	 * @return
+	 */
+	public byte judgeWinner();
 	
 }

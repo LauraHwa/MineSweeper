@@ -1,6 +1,6 @@
 /*
- *
- * TODO the view of MVC structure. to create user interface and show result
+ * 游戏主界面
+ * the view of MVC structure. to create user interface and show result
  * automatically when model data are changed
  */
 package edu.nju.view;
@@ -34,7 +34,7 @@ import edu.nju.view.listener.MenuListener;
 
 import java.util.Observer;
 
-public class MainFrame implements Observer {
+public class MainFrame implements Observer, Runnable{
 	
 	//Variables declaration
 	private JFrame mainFrame; 
@@ -43,6 +43,10 @@ public class MainFrame implements Observer {
 	private JMenu game;
 	private HashMap<String, JMenuItem> menuItemMap;
 	private JMenuItem startItem;
+	private RecordDialog recordDialog = null;
+	/**
+	 * 分隔符
+	 */
 	private JSeparator jSeparator;
 	private JSeparator jSeparator1;
 	private JSeparator jSeparator2;
@@ -61,16 +65,22 @@ public class MainFrame implements Observer {
 	private JLabel time;
 	private MineBoardPanel body;
 	private final int buttonSize = 16;
+	//界面宽高
 	private final int bodyMarginNorth = 20;
 	private final int bodyMarginOther = 12;
+	//雷区宽高
 	private int defaultWidth = 9;
 	private int defaultHeight = 9;
 	private CoreListener coreListener;
+	/**
+	 * 菜单监听
+	 */
 	private MenuListener menuListener;
-	//End of variables declaration
-	private RecordDialog recordDialog = null;
-	private boolean isRunning;
 	
+	private final Thread thread;
+	private boolean isRunning;
+	//End of variables declaration
+
 	public MainFrame() {
 		try {
 			UIManager
@@ -81,7 +91,9 @@ public class MainFrame implements Observer {
 		componentsInstantiation();
 		initComponents();
 		mainFrame.setVisible(true);
-
+		mainFrame.setAlwaysOnTop(true);
+		thread = new Thread(this);
+		thread.start();
 	}
 
 	//Instantiation of components
@@ -112,16 +124,15 @@ public class MainFrame implements Observer {
 		group = new ButtonGroup();
 		
 		body = new MineBoardPanel(defaultHeight,defaultWidth);
-		coreListener = new CoreListener(this);
 		menuListener = new MenuListener(this);
+		coreListener = new CoreListener(this);
 	}
 	
 	/**
 	 * This method is called from within the constructor to initialize the form.
 	 */
 	private void initComponents() {
-		mainFrame
-				.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		mainFrame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		mainFrame.setResizable(false);
 		game.setText("Game");
 
@@ -245,14 +256,14 @@ public class MainFrame implements Observer {
 		mainFrame.validate();
 		mainFrame.repaint();
 		easy.setSelected(true);
-		mainFrame
-				.setLocation((screenSize.width - head.getWidth()) / 2,
+		mainFrame.setLocation((screenSize.width - head.getWidth()) / 2,
 						(screenSize.height - aJMenuBar.getHeight()
 								- head.getHeight() - body.getHeight()) / 2);
-
+		/**
+		 * 当窗口正在关闭时调用，可能是保存数据
+		 */
 		mainFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				
 			}
 		});
 	}
@@ -317,19 +328,18 @@ public class MainFrame implements Observer {
 			
 			if(statistics != null){
 				String[] names = new String[4];
-				int[] scores = new int[4];
+				double[] scores = new double[4];
 				for (int i = 0; i < 4; i++) {
 					names[i] = statistics.get(i).getName();
-					scores[i] = statistics.get(i).getWins();
+					scores[i] = statistics.get(i).getWinrate();
 				}
 				recordDialog = new RecordDialog(this.mainFrame);
 				recordDialog.show(names, scores);
 			}	
 		}
 	}
-
+	
 	private void restart(int mineBoardHeight,int mineBoardWidth,String type) {
-
 		mainFrame.getContentPane().remove(body);
 		body = new MineBoardPanel(mineBoardHeight,mineBoardWidth);
 		head.setBounds(4, 5, mineBoardWidth * buttonSize + bodyMarginOther * 2 - 4, 65);
@@ -363,28 +373,13 @@ public class MainFrame implements Observer {
 		else if(type.equals("大")){
 			hell.setSelected(true);
 		}
-		else{
-			custom.setSelected(true);
-		}
-//		switch (type) {
-//		case "小":
-//			easy.setSelected(true);
-//			break;
-//		case "中":
-//			hard.setSelected(true);
-//			break;
-//		case "大":
-//			hell.setSelected(true);
-//			break;
-//		default:
-//			custom.setSelected(true);
-//			break;
-//		}
+		
 		mainFrame.validate();
 		mainFrame.repaint();
 		
 		isRunning = true;
 	}
+
 	public void run() {
 		while(true){
 			try {

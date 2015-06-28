@@ -1,6 +1,8 @@
 package edu.nju.model.po;
 
-public class StatisticPO {
+import java.io.Serializable;
+
+public class StatisticPO implements Serializable{
 
 	private double winrate;
 	private int wins;
@@ -22,7 +24,7 @@ public class StatisticPO {
 		this.level = level;
 		this.width = width;
 		this.height = height;
-		this.name = "***";
+		this.name = "Unknow Name";
 	}
 
 	public double getWinrate() {
@@ -72,7 +74,7 @@ public class StatisticPO {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

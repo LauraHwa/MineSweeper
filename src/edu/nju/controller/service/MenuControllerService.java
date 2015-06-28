@@ -6,5 +6,9 @@ public interface MenuControllerService {
 	 * @return
 	 */
 	public boolean startGame();
-
+	/**
+	 * 显示记录
+	 * @return
+	 */
+	public boolean showRecord();
 }

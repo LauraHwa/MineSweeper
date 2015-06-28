@@ -13,6 +13,10 @@ import javax.swing.JLabel;
 
 
 public class MyButton extends JLabel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Location location;
 	private Image image;
 	private ImageIcon imageIcon;
@@ -40,8 +44,6 @@ public class MyButton extends JLabel {
 	
 	public void draw(ImageIcon imageIcon){
 		this.imageIcon = imageIcon;
-//		this.image = image;
 		repaint();
 	}
-
 }

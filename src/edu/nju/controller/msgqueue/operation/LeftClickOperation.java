@@ -17,5 +17,4 @@ public class LeftClickOperation extends MineOperation{
 		ChessBoardModelService chess = OperationQueue.getChessBoardModel();
 		chess.excavate(x, y);
 	}
-
 }

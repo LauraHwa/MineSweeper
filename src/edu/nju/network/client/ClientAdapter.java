@@ -17,14 +17,10 @@ public class ClientAdapter {
 			socket.start();
 			return true;
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return false;
 		}
-		
-		return false;
 	}
 	//to write
 	public static void write(Object o){

@@ -48,7 +48,6 @@ public class MineBoardPanel extends JPanel implements Observer {
 		//如果棋盘发生变化要体现在这边
 		UpdateMessage updateMessage = (UpdateMessage) arg;
 		if(updateMessage.getKey().equals("excute")){
-//			System.out.println("mark changed");
 			List<BlockVO> changedCells = (List<BlockVO>) updateMessage.getValue();
 			BlockVO displayBlock;
             for(int i=0;i<changedCells.size();i++){
@@ -59,10 +58,7 @@ public class MineBoardPanel extends JPanel implements Observer {
             }
 		}
 	}
-
 	
-
-
 	public static MyButton[][] getjLabelButtons() {
 		return jLabelButtons;
 	}

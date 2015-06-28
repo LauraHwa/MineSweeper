@@ -1,5 +1,12 @@
 package edu.nju.controller.msgqueue.operation;
 
-public abstract class MineOperation {
+import java.io.Serializable;
+
+public abstract class MineOperation implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public abstract void execute();
 }

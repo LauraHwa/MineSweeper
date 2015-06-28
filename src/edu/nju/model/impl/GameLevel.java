@@ -10,6 +10,9 @@ public class GameLevel {
 	
 	public GameLevel(int level, String name, int width, int height, int mineNum) {
 		super();
+		/**
+		 * level 为0，name为大，以及类推
+		 */
 		this.level = level;
 		this.name = name;
 		this.width = width;

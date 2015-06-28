@@ -77,5 +77,4 @@ public class GameVO implements Serializable{
 	public void setTime(int time) {
 		this.time = time;
 	}
-	
 }

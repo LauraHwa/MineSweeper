@@ -2,7 +2,6 @@ package edu.nju.controller.service;
 /**
  * 提供相关游戏操作：单击，右击，双击。
  * @author 晨晖
- *
  */
 public interface GameControllerService {
 	/**

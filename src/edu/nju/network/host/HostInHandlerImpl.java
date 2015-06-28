@@ -10,8 +10,8 @@ public class HostInHandlerImpl implements HostInHandler{
 	 */
 	@Override
 	public void inputHandle(Object data) {
-		// TODO Auto-generated method stub
 		MineOperation op = (MineOperation) data;
+		OperationQueue.isHost = false;
 		OperationQueue.addMineOperation(op);
 	}
 }

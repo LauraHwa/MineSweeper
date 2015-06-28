@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import edu.nju.controller.msgqueue.OperationQueue;
 import edu.nju.network.Configure;
 
 public class ClientThread extends Thread {
@@ -15,7 +16,7 @@ public class ClientThread extends Thread {
 	private ObjectInputStream reader;
 	private ObjectOutputStream out;
 
-	public ClientThread(String addr) throws UnknownHostException, IOException{
+	public ClientThread(String addr) throws UnknownHostException, IOException {
 		super();
 		
 		server = new Socket(addr,Configure.PORT);
@@ -32,21 +33,15 @@ public class ClientThread extends Thread {
 			try {
 				Object obj = reader.readObject();
 				
-				ClientAdapter.readData(obj);
-				
-				
+				ClientAdapter.readData(obj);	
 			} catch(SocketException se){
-				System.out.println("socket connection is closed!!!");
 				this.close();
 				break;
 			}catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
@@ -57,15 +52,14 @@ public class ClientThread extends Thread {
 	}
 	
 	public void close(){
-		
 		try {
+			OperationQueue.backToSingle();
 			reader.close();
 			out.close();
 			server.close();
 			this.interrupt();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -75,8 +69,8 @@ public class ClientThread extends Thread {
 			out.writeObject(o);
 			out.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			close();
+			return false;
 		}
 		
 		return true;

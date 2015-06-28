@@ -14,5 +14,4 @@ public abstract class HostService implements Observer{
 	}
 	
 	public abstract void publishData(TransformObject o);
-
 }

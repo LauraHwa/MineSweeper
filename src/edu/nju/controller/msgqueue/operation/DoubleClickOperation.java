@@ -4,6 +4,10 @@ import edu.nju.controller.msgqueue.OperationQueue;
 import edu.nju.model.service.ChessBoardModelService;
 
 public class DoubleClickOperation extends MineOperation{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int x;
 	private int y;
 	public DoubleClickOperation(int x ,int y){

@@ -14,23 +14,18 @@ public class ServerAdapter {
 			handler = h;
 			
 			socket.start();
-			
 			return true;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch(Exception e1){
+		}  catch(Exception e1){
 			e1.printStackTrace();
 		}
 		
 		return false;
 	}
-//	public static void write(String str){
-//		socket.write(str);
-//	}
 	
 	public static void write(Object o){
-		socket.write(o);
+		if(socket.connected()){
+			socket.write(o);
+		}
 	}
 	
 	//from read
@@ -41,6 +36,4 @@ public class ServerAdapter {
 	public static void close(){
 		socket.close();
 	}
-	
-	
 }

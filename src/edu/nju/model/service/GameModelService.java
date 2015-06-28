@@ -50,5 +50,9 @@ public interface GameModelService {
 	 */
 	public List<GameLevel> getGameLevel();
 
+	/**
+	 * 显示游戏数据
+	 */
+	public boolean showRecord();
 }
 

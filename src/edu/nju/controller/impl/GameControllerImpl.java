@@ -5,6 +5,7 @@ import edu.nju.controller.msgqueue.operation.LeftClickOperation;
 import edu.nju.controller.msgqueue.operation.MineOperation;
 import edu.nju.controller.msgqueue.operation.RightClickOperation;
 import edu.nju.controller.service.GameControllerService;
+
 public class GameControllerImpl implements GameControllerService{
 
 	@Override
@@ -25,10 +26,8 @@ public class GameControllerImpl implements GameControllerService{
 
 	@Override
 	public boolean handleDoubleClick(int x, int y) {
-		// TODO Auto-generated method stub
 		MineOperation op = new DoubleClickOperation(x, y);
 		OperationQueue.addMineOperation(op);
 		return true;
 	}
-
 }

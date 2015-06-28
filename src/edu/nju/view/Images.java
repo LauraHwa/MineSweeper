@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.io.FileInputStream;
  
 
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -49,8 +50,12 @@ public class Images {
 
 	public static final ImageIcon MINE_WRONG = createImageIcon("images/MINE_WRONG.gif");
 
+	public static final ImageIcon MINE_WRONG_CLIENT = createImageIcon("images/1MINE_WRONG.gif");
+	
 	public static final ImageIcon MINE_BLAST = createImageIcon("images/MINE_BLAST.gif");
 
+	public static final ImageIcon MINE_BLAST_CLIENT = createImageIcon("images/1MINE_BLAST.gif");
+	
 	public static final ImageIcon CLICKED = createImageIcon("images/CLICKED.gif");
 
 	public static final ImageIcon UNCLICKED = createImageIcon("images/UNCLICKED.gif");
@@ -59,6 +64,8 @@ public class Images {
 
 	public static final ImageIcon MARKED_MINE = createImageIcon("images/MARKED_MINE.gif");
 
+	public static final ImageIcon MARKED_MINE_CLIENT = createImageIcon("images/1MARKED_MINE.gif");
+	
 	public static ImageIcon getImageIconByState(DisplayBlockState state){
 		switch (state) {
 		case UNCLICK:
@@ -81,18 +88,23 @@ public class Images {
 			return number[6];
 		case EIGHT:
 			return number[7];
-		case FLAG:
-			return MARKED_MINE;
 		case MINE:
 			return MINE;
+		case FLAG:
+			return MARKED_MINE;	
 		case Bomb:
-			return MINE_BLAST;
+			return MINE_BLAST;	
 		case ERROFLAG:
 			return MINE_WRONG;
+		case CLIENTFALG:
+			return MARKED_MINE_CLIENT;
+		case CLIENTERRORFLAG:
+			return MINE_WRONG_CLIENT;
+		case CLIENTBomb:
+			return MINE_BLAST_CLIENT;
 		default:
 			break;
 		}
 		return UNCLICKED;
 	}
- 
 }

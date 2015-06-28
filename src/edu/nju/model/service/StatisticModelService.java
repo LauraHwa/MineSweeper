@@ -21,4 +21,6 @@ public interface StatisticModelService {
 	 */
 	public void recordStatistic(GameResultState result, int time);
 
+	public void setLevel(String level);
+
 }

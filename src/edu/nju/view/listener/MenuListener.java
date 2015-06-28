@@ -7,10 +7,16 @@ package edu.nju.view.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import edu.nju.controller.impl.ClientControllerImpl;
+import edu.nju.controller.impl.HostControllerImpl;
 import edu.nju.controller.impl.MenuControllerImpl;
 import edu.nju.controller.impl.SettingControllerImpl;
+import edu.nju.controller.service.ClientControllerService;
+import edu.nju.controller.service.HostControllerService;
 import edu.nju.controller.service.MenuControllerService;
 import edu.nju.controller.service.SettingControllerService;
+import edu.nju.network.Configure;
+import edu.nju.network.host.ServerAdapter;
 import edu.nju.view.CustomDialog;
 import edu.nju.view.MainFrame;
  
@@ -20,9 +26,16 @@ public class MenuListener implements ActionListener{
 	private MainFrame ui;
 	MenuControllerService menuController = new MenuControllerImpl();
 	SettingControllerService settingController = new SettingControllerImpl();
+	HostControllerService hostController = new HostControllerImpl();
+	ClientControllerService clientController = new ClientControllerImpl();
+	/**
+	 * 游戏模式：0代表单机游戏，1代表服务器端，2代表客户端
+	 */
+	private byte gameModel;
 	
 	public MenuListener(MainFrame ui){
 		this.ui = ui;
+		gameModel = 0;
 	}
 	/*
 	 * (non-Javadoc)
@@ -44,19 +57,24 @@ public class MenuListener implements ActionListener{
 				int height = customDialog.getHeight();
 				int width = customDialog.getWidth();
 				int nums = customDialog.getMineNumber();
-				System.out.println(height+"    "+ width+"    "+nums);
 				settingController.setCustomizedGameLevel(height, width, nums);
 			}
 		} else if (e.getSource() == ui.getMenuItem("exit")) {
 			System.exit(0);
 		} else if (e.getSource() == ui.getMenuItem("record")) {//统计胜率信息
-			
+			menuController.showRecord();
 		}else if(e.getSource() == ui.getMenuItem("host")){//注册成为主机
-			
+			if(gameModel != 1){
+				hostController.serviceetupHost();
+				gameModel = 1;
+			}
 		}else if(e.getSource() == ui.getMenuItem("client")){//注册成为客户端
-			
+			if(gameModel == 1){
+				ServerAdapter.close();
+				gameModel = 0;
+			}
+			clientController.addConnection(ui);
+			clientController.setupClient(Configure.SERVER_ADDRESS);
 		}
 	}
-
-
 }

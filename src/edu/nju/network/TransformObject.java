@@ -35,5 +35,4 @@ public class TransformObject implements Serializable{
 	public void setMsg(UpdateMessage msge){
 		this.msg = msge;
 	}
-
 }
