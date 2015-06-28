@@ -4,10 +4,6 @@ package edu.nju.network.modelProxy;
 import java.util.List;
 
 import edu.nju.controller.msgqueue.operation.MineOperation;
-import edu.nju.controller.msgqueue.operation.StartCustomizedGameOperation;
-import edu.nju.controller.msgqueue.operation.StartEasyGameOperation;
-import edu.nju.controller.msgqueue.operation.StartHardGameOperation;
-import edu.nju.controller.msgqueue.operation.StartHellGameOperation;
 import edu.nju.controller.msgqueue.operation.StartGameOperation;
 import edu.nju.model.impl.GameLevel;
 import edu.nju.model.service.GameModelService;
@@ -28,22 +24,9 @@ public class GameModelProxy extends ModelProxy implements GameModelService{
 	@Override
 	public boolean setGameLevel(String level) {
 		MineOperation op;
-		switch(level){
-		case "小": op = new StartEasyGameOperation(); break;
-		case "中": op = new StartHardGameOperation(); break;
-		case "大": op = new StartHellGameOperation(); break;
-		default:
-			String[] levelInfo = level.split(" ");
-			if(levelInfo.length == 3){
-				int h = Integer.parseInt(levelInfo[0]);
-				int w = Integer.parseInt(levelInfo[1]);
-				int n = Integer.parseInt(levelInfo[2]);
-				op = new StartCustomizedGameOperation(h, w, n);
-			}else{
-				op = new StartEasyGameOperation();
-			}
-			break;
-		}
+	
+				op = new StartGameOperation(level);
+		
 		net.submitOperation(op);
 		return true;
 	}
